@@ -2,10 +2,11 @@
 import { useRef, useEffect } from "react";
 import { FiArrowRight, FiTag, FiFacebook, FiTwitter, FiInstagram } from "react-icons/fi";
 import { motion, useAnimation } from "framer-motion";
+import FAQPageCarousel from "./faqs";
 
 const GlassContainer = () => {
   return (
-    <div className="absolute inset-0 flex items-center justify-center z-30 px-4 mt-10">
+    <div className="absolute -top-12 inset-0 flex flex-col justify-center z-30 px-4 mt-10">
       <div className="flex flex-col items-center">
         <AnimatedRoundedTag />
         <AnimatedHeader />
@@ -16,6 +17,7 @@ const GlassContainer = () => {
           <SocialMediaIcon icon={<FiInstagram />} delay={0.6} />
         </div>
       </div>
+      <FAQPageCarousel/>
     </div>
   );
 };
@@ -88,7 +90,7 @@ const AnimatedCard = () => {
       className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border border-gray-500 rounded-3xl p-8 py-12 shadow-lg max-w-2xl w-full mb-6"
     >
       <h2 className="text-white text-4xl font-semibold text-center">Join Our Waitlist</h2>
-      <p className="text-white mt-4 text-center sm:px-16 text-gray-300">
+      <p className="text-white mt-4 text-center sm:px-16">
         Sign up to be the first to know when we launch. We will let you know once we are ready to go on production.
       </p>
       <div className="max-w-sm mx-auto">

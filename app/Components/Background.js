@@ -12,7 +12,6 @@ const BackgroundSection = () => {
         className="z-0"
       />
       <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
-   
     </div>
   );
 };
