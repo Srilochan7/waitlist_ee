@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useEffect } from "react";
-import { FiArrowRight, FiTag, FiFacebook, FiTwitter, FiInstagram } from "react-icons/fi";
+import { FiArrowRight, FiTag, FiFacebook, FiTwitter, FiInstagram, FiLink } from "react-icons/fi";
 import { motion, useAnimation } from "framer-motion";
 import FAQPageCarousel from "./faqs";
 
@@ -12,9 +12,9 @@ const GlassContainer = () => {
         <AnimatedHeader />
         <AnimatedCard />
         <div className="flex gap-4">
-          <SocialMediaIcon icon={<FiFacebook />} delay={0.2} />
-          <SocialMediaIcon icon={<FiTwitter />} delay={0.4} />
-          <SocialMediaIcon icon={<FiInstagram />} delay={0.6} />
+          <SocialMediaIcon icon={<FiLink />} delay={0.2} />
+          {/* <SocialMediaIcon icon={<FiTwitter />} delay={0.4} />
+          <SocialMediaIcon icon={<FiInstagram />} delay={0.6} /> */}
         </div>
       </div>
       <FAQPageCarousel/>
@@ -39,11 +39,11 @@ const AnimatedRoundedTag = () => {
       animate={controls}
       className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-md border border-gray-500 rounded-full px-4 py-2 flex items-center gap-2 shadow-md mb-6"
     >
-      <FiTag className="text-white" />
-      <span className="text-white text-sm font-medium">New Feature</span>
+      <span className="text-white text-sm font-medium">Be the first to know</span>
     </motion.div>
   );
 };
+
 
 const AnimatedHeader = () => {
   const controls = useAnimation();
@@ -63,10 +63,10 @@ const AnimatedHeader = () => {
       className="relative flex items-center justify-center w-full mb-8"
     >
       <span className="absolute mx-auto py-4 flex border w-fit bg-gradient-to-r blur-xl from-gray-300 via-gray-200 to-gray-100 bg-clip-text text-7xl box-content font-extrabold text-transparent text-center select-none tracking-tight">
-        Coming Soon!
+        ExpertEase !
       </span>
       <h1 className="relative top-0 w-fit h-auto py-4 justify-center flex bg-gradient-to-r items-center from-gray-300 via-gray-200 to-gray-100 bg-clip-text text-7xl font-extrabold text-transparent text-center select-auto tracking-tight">
-        Coming Soon!
+        ExpertEase !
       </h1>
     </motion.div>
   );

@@ -23,15 +23,15 @@ function FAQPageCarousel() {
     },
     {
       question: "Who can become a mentor on ExpertEase?",
-      answer: "Anyone with expertise in a particular area, like coding, design, app development, or career building, can register as a mentor. Students who are skilled in specific fields can also become mentors, making it a platform for students helping students while earning in the process.",
+      answer: "Anyone with expertise in areas like coding, app development, or career building can join as a mentor. Even skilled students can share their knowledge and earn by guiding peers through ExpertEase.",
     },
     {
       question: "How does ExpertEase work?",
-      answer: "Students seeking mentorship can search for mentors based on their specific needs and connect with them on-demand. Similarly, mentors can list their skills and availability, making it easy for students to find and book sessions. It's like Fiverr, but exclusively focused on mentorship.",
+      answer: "Students can search for mentors based on specific needs and book sessions easily. Mentors, in turn, can list their skills and availability. It’s a seamless, student-focused approach to finding the right guidance when you need it.",
     },
     {
       question: "What makes ExpertEase different from other mentorship programs?",
-      answer: "Unlike traditional mentorship programs that are often rigid or generalized, ExpertEase is flexible and tailored. It's built for students by students, ensuring a focus on specific needs, affordability, and the ability to find guidance on-demand. It's mentorship reimagined for the modern student.",
+      answer: "ExpertEase offers flexible, tailored mentorship designed specifically for students. Unlike rigid or generic programs, it’s affordable, accessible, and focused on connecting you with mentors who meet your exact needs.",
     }
   ]
 
@@ -83,9 +83,9 @@ function FAQPageCarousel() {
       <div className="mx-auto max-w-7xl px-4 py-16 relative z-10">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold tracking-tight mb-4 bg-gradient-to-r from-[#2D9B9B] to-[#FF6B6B] text-transparent bg-clip-text">
-            What can we help you with?
+          ExpertEase in a Nutshell
           </h1>
-          <p className="text-gray-400 mb-8">Browse through our frequently asked questions</p>
+          <p className="text-gray-400 mb-8">Answers to help you get started with ExpertEase</p>
         </div>
 
         <div className="relative">
