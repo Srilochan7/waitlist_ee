@@ -3,10 +3,11 @@ import { useRef, useEffect } from "react";
 import { FiArrowRight, FiTag, FiFacebook, FiTwitter, FiInstagram, FiLink } from "react-icons/fi";
 import { motion, useAnimation } from "framer-motion";
 import FAQPageCarousel from "./faqs";
+import Footer from "./Footer";
 
 const GlassContainer = () => {
   return (
-    <div className="absolute -top-12 inset-0 flex flex-col justify-center z-30 px-4 mt-10">
+    <div className="absolute -top-12 inset-0 flex flex-col justify-center z-30 mt-10">
       <div className="flex flex-col items-center">
         <AnimatedRoundedTag />
         <AnimatedHeader />
@@ -18,6 +19,7 @@ const GlassContainer = () => {
         </div>
       </div>
       <FAQPageCarousel/>
+      <Footer/>
     </div>
   );
 };

@@ -6,10 +6,9 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full">
       <BackgroundSection/>
-      <main className=" w-[100%] relative mt-0">
+      <main className=" w-[100%] relative">
         <GlassCTA />
       </main>
-      <Footer />
     </div>
   );
 }
