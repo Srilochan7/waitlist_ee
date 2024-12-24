@@ -76,7 +76,7 @@ function FAQPageCarousel() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] relative overflow-hidden mt-10">
+    <div className="min-h-screen bg-[#0A0A0A] relative overflow-hidden mt-4">
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#2D9B9B] opacity-30 rounded-full filter blur-[80px]" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF6B6B] opacity-30 rounded-full filter blur-[80px]" />
 
