@@ -126,7 +126,7 @@ const WaitlistForm = () => {
 
     try {
       console.log('Submitting email:', email);
-      const response = await fetch('http://localhost:3000/api/waitlist', {
+      const response = await fetch('https://wl-backend.vercel.app/api/waitlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
