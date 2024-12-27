@@ -1,5 +1,6 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { createClient } from '@supabase/supabase-js';
 import { FiArrowRight, FiTag, FiFacebook, FiTwitter, FiInstagram, FiLink } from "react-icons/fi";
 import { motion, useAnimation } from "framer-motion";
 import FAQPageCarousel from "./faqs";
@@ -81,7 +82,12 @@ const AnimatedCard = () => {
     controls.start({
       opacity: 1,
       scale: 1,
-      transition: { delay: 0.6, duration: 0.5, type: "spring", stiffness: 100 },
+      transition: {
+        delay: 0.6,
+        duration: 0.5,
+        type: "spring",
+        stiffness: 100,
+      },
     });
   }, [controls]);
 
@@ -91,9 +97,12 @@ const AnimatedCard = () => {
       animate={controls}
       className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border border-gray-500 rounded-3xl p-8 py-12 shadow-lg max-w-2xl w-full mb-6"
     >
-      <h2 className="text-white text-4xl font-semibold text-center">Join Our Waitlist</h2>
+      <h2 className="text-white text-4xl font-semibold text-center">
+        Join Our Waitlist
+      </h2>
       <p className="text-white mt-4 text-center sm:px-16">
-        Sign up to be the first to know when we launch. We will let you know once we are ready to go on production.
+        Sign up to be the first to know when we launch. We’ll notify you as soon
+        as we’re ready to go live.
       </p>
       <div className="max-w-sm mx-auto">
         <WaitlistForm />
@@ -101,38 +110,75 @@ const AnimatedCard = () => {
     </motion.div>
   );
 };
-
 const WaitlistForm = () => {
   const inputRef = useRef(null);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const email = inputRef.current?.value;
+    
+    if (!email) return;
+
+    try {
+      console.log('Submitting email:', email);
+      const response = await fetch('http://localhost:3000/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      console.log('Response status:', response.status);
+      const data = await response.json();
+      console.log('Response data:', data);
+      
+      if (!response.ok) throw new Error(data.error || 'Server error');
+      
+      inputRef.current.value = "";
+      setStatus("Thanks for joining!");
+      setTimeout(() => setStatus(""), 3000);
+      
+    } catch (error) {
+      console.error('Detailed error:', error);
+      setStatus(error.message || "Error submitting. Please try again.");
+      setTimeout(() => setStatus(""), 3000);
+    }
+  };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-      onClick={() => {
-        inputRef.current.focus();
-      }}
-      className="relative flex w-full max-w-md items-center gap-2 rounded-full border border-white/20 bg-black py-1.5 pl-6 pr-1.5 mt-6 shadow-2xl shadow-white"
-    >
-      <input
-        ref={inputRef}
-        type="email"
-        placeholder="Enter your email"
-        className="w-full bg-transparent text-sm text-white placeholder-white/80 focus:outline-0"
-      />
-      <button
-        onClick={(e) => e.stopPropagation()}
-        type="submit"
-        className="group flex shrink-0 items-center gap-1.5 rounded-full bg-gray-200 px-4 py-3 text-sm font-medium text-black transition-transform active:scale-[0.985]"
+    <>
+      <form
+        onSubmit={handleSubmit}
+        onClick={() => inputRef.current?.focus()}
+        className="relative flex w-full max-w-md items-center gap-2 rounded-full border border-white/20 bg-black py-1.5 pl-6 pr-1.5 mt-6 shadow-2xl shadow-white"
       >
-        <span>Join Waitlist</span>
-        <FiArrowRight className="-mr-4 opacity-0 transition-all group-hover:-mr-0 group-hover:opacity-100 group-active:-rotate-45" />
-      </button>
-    </form>
+        <input
+          ref={inputRef}
+          type="email"
+          placeholder="Enter your email"
+          className="w-full bg-transparent text-sm text-white placeholder-white/80 focus:outline-0"
+          required
+        />
+        <button
+          onClick={(e) => e.stopPropagation()}
+          type="submit"
+          className="group flex shrink-0 items-center gap-1.5 rounded-full bg-gray-200 px-4 py-3 text-sm font-medium text-black transition-transform active:scale-[0.985]"
+        >
+          <span>Join Waitlist</span>
+          <FiArrowRight className="-mr-4 opacity-0 transition-all group-hover:-mr-0 group-hover:opacity-100 group-active:-rotate-45" />
+        </button>
+      </form>
+      {status && (
+        <div className="mt-2 text-center text-sm text-white">
+          {status}
+        </div>
+      )}
+    </>
   );
 };
-
 const SocialMediaIcon = ({ icon, delay }) => {
   const controls = useAnimation();
 
@@ -158,3 +204,95 @@ const SocialMediaIcon = ({ icon, delay }) => {
 };
 
 export default GlassContainer;
+
+
+
+
+/*
+"use client";
+import { useRef, useState } from "react";
+import { FiArrowRight } from "react-icons/fi";
+import { createClient } from '@supabase/supabase-js';
+
+const WaitlistForm = () => {
+  const inputRef = useRef(null);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState({ type: "", message: "" });
+
+  // Initialize Supabase client
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!email) {
+      setStatus({ type: "error", message: "Please enter your email" });
+      return;
+    }
+
+    try {
+      // Insert email into Supabase table
+      const { data, error } = await supabase
+        .from('waitlist') // Replace 'waitlist' with your actual table name
+        .insert([
+          { email: email }
+        ]);
+
+      if (error) throw error;
+
+      // Success
+      setStatus({ type: "success", message: "Thanks for joining our waitlist!" });
+      setEmail("");
+      
+    } catch (error) {
+      // Check if error is due to duplicate email
+      if (error.code === '23505') {
+        setStatus({ type: "error", message: "This email is already on our waitlist" });
+      } else {
+        setStatus({ type: "error", message: "Something went wrong. Please try again." });
+      }
+      console.error('Error:', error);
+    }
+  };
+
+  return (
+    <div className="w-full max-w-md">
+      <form
+        onSubmit={handleSubmit}
+        onClick={() => inputRef.current.focus()}
+        className="relative flex w-full items-center gap-2 rounded-full border border-white/20 bg-black py-1.5 pl-6 pr-1.5 mt-6 shadow-2xl shadow-white"
+      >
+        <input
+          ref={inputRef}
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          className="w-full bg-transparent text-sm text-white placeholder-white/80 focus:outline-0"
+        />
+        <button
+          onClick={(e) => e.stopPropagation()}
+          type="submit"
+          className="group flex shrink-0 items-center gap-1.5 rounded-full bg-gray-200 px-4 py-3 text-sm font-medium text-black transition-transform active:scale-[0.985]"
+        >
+          <span>Join Waitlist</span>
+          <FiArrowRight className="-mr-4 opacity-0 transition-all group-hover:-mr-0 group-hover:opacity-100 group-active:-rotate-45" />
+        </button>
+      </form>
+      
+      {status.message && (
+        <div className={`mt-2 text-center text-sm ${
+          status.type === "error" ? "text-red-400" : "text-green-400"
+        }`}>
+          {status.message}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default WaitlistForm;
+*/
